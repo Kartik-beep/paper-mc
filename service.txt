@@ -1,0 +1,17 @@
+[Unit]
+Description=Minecraft Server nr 1
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/mc/mc1
+User=ser-mc
+Group=ser-mc
+Restart=on-failure
+TimeoutStopSec=12
+ExecStart=screen -DmS mc1 java -Xms10240 -jar server.jar
+ExecStop=screen -S mc1 -X stuff 'save-all\015'
+ExecStop=sleep 2
+ExecStop=screen -S mc1 -X stuff 'stop\015'
+
+[Install]
+WantedBy=multi-user.target
